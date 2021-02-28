@@ -281,6 +281,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "combine"
+version = "4.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc4369b5e4c0cddf64ad8981c0111e7df4f7078f4d6ba98fb31f2e17c4c57b7e"
+dependencies = [
+ "bytes",
+ "memchr",
+]
+
+[[package]]
 name = "concurrent-queue"
 version = "1.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1103,6 +1113,7 @@ dependencies = [
  "async-std",
  "bytes",
  "bytestring",
+ "combine",
  "conquer-once",
  "crossbeam",
  "either",

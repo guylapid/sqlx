@@ -85,6 +85,9 @@ pub enum Error {
     /// An error occurred encoding a value for a specific parameter to
     /// be sent to the database.
     ParameterEncode { parameter: Either<usize, Box<str>>, source: EncodeError },
+
+    /// An error occurred while parsing or expanding the generic placeholder syntax in a query.
+    Placeholders(crate::placeholders::Error),
 }
 
 impl Error {
@@ -179,6 +182,8 @@ impl Display for Error {
             Self::ParameterEncode { parameter: Either::Right(name), source } => {
                 write!(f, "Encode parameter `{}`: {}", name, source)
             }
+
+            Self::Placeholders(e) => e.fmt(f),
         }
     }
 }
@@ -188,7 +193,7 @@ impl StdError for Error {
         match self {
             Self::ConnectOptions { source: Some(source), .. } => Some(&**source),
             Self::Network(source) => Some(source),
-
+            Self::Placeholders(source) => Some(source),
             _ => None,
         }
     }
